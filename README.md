@@ -1,2 +1,64 @@
-# edge_computing
-Live edge computing coding
+# Edge Computing with Raspberry Pi Pico WH
+
+Hands-on laboratory exercises and foundational edge computing workflows using the **Raspberry Pi Pico WH** running **MicroPython**.
+
+---
+
+## 🛠️ Hardware Specifications
+
+| Component | Specification |
+| :--- | :--- |
+| **Model** | Raspberry Pi Pico WH (with pre-soldered pin headers) |
+| **Silicon / MCU** | Raspberry Pi **RP2040** (Dual-core ARM Cortex-M0+ @ 133 MHz) |
+| **Memory** | 264 KB on-chip SRAM, 2 MB external onboard QSPI Flash |
+| **Wireless Module** | Infineon **CYW43439** (2.4 GHz 802.11n Wi-Fi & Bluetooth 5.2) |
+| **I/O & Development** | 26 multi-function GPIO pins, 3-pin SWD debug port, micro-USB |
+
+---
+
+## 📂 Repository Structure
+
+```
+edge_computing/
+├── .vscode/
+├── 00_setup_internal_led/
+│   └── main.py
+├── 01_led/
+│   └── main.py
+├── .gitignore
+└── README.md
+```
+---
+
+## 🧪 Labs & Progress
+
+### `00_setup_internal_led` Onboard LED Verification
+
+Verifies the MicroPython runtime environment and board-level communication by driving the onboard status LED.
+
+**Key Concepts:**
+
+- Pin Mapping: On the standard Pico, the onboard LED is hardwired to GPIO 25, but on the Pico W / WH it is wired through the Infineon CYW43439 wireless IC. MicroPython automatically abstracts this via `Pin("LED", Pin.OUT)`
+
+- State Inversion: Uses `.toggle()`to invert the LED state without tracking high (1) and low (0) values manually.
+
+### `01_led` External Multi-LED Traffic Light Cycle
+
+Interfaces external components via a breadboard, driving multiple color-coded LEDs sequentially through dedicated GPIO pins.
+
+**Hardware Pin Mapping**
+- Red LED: GPIO 15 (Pin 20) $\rightarrow$ Current-limiting resistor $\rightarrow$ Ground
+- Yellow LED: GPIO 13 (Pin 17) $\rightarrow$ Current-limiting resistor $\rightarrow$ Ground
+- Green LED: GPIO 10 (Pin 14) $\rightarrow$ Current-limiting resistor $\rightarrow$ Ground
+
+**Implementation Details**
+
+- Organizes hardware pin objects inside a Python dictionary for structured access.
+- Uses list comprehension to isolate and shut off non-active LEDs during each phase of the cycle.
+
+## 🚀 Environment & Setup
+1. Firmware: Flash the latest MicroPython for Raspberry Pi Pico W `.uf2` binary onto the board using `BOOTSEL` mode.
+
+2. VS Code Setup: Use the MicroPico extension to manage the serial connection, upload files, and interact via REPL.
+
+3. Execution: Save standalone scripts as main.py directly to the device root to trigger execution on boot.
