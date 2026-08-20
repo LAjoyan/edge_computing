@@ -5,16 +5,26 @@ time.sleep(0.1)  # Wait for USB to become ready
 
 print("Hello, Pi Pico W!")
 
-led = dict(red=Pin(15, Pin.OUT), yellow=Pin(13, Pin.OUT), green=Pin(10, Pin.OUT))
-
-colors = ("red", "yellow", "green")
+red = Pin(15, 1)
+yellow = Pin(13,1)
+green = Pin(10, 1)
 
 while True:
-    for color in colors:
-        led[color].value(1)
-        # turn off the other LEDs
-        remaining_colors = tuple(c for c in colors if c != color)
-        led[remaining_colors[0]].value(0)
-        led[remaining_colors[1]].value(0)
 
-        time.sleep(2)
+    red.value(1)
+    yellow.value(0)
+    green.value(0)
+
+    time.sleep(3)
+
+    red.value(0)
+    yellow.value(1)
+    green.value(0)
+
+    time.sleep(3)
+
+    red.value(0)
+    yellow.value(0)
+    green.value(1)
+
+    time.sleep(5)
