@@ -25,6 +25,7 @@ edge_computing/
 │   └── main.py
 ├── 01_led/
 │   └── main.py
+│   └── traffic_light.jpg
 ├── .gitignore
 └── README.md
 ```
@@ -45,6 +46,14 @@ Verifies the MicroPython runtime environment and board-level communication by dr
 ### `01_led` External Multi-LED Traffic Light Cycle
 
 Interfaces external components via a breadboard, driving multiple color-coded LEDs sequentially through dedicated GPIO pins.
+
+**Wiring & Wokwi Simulation:**
+
+> 💡 **New to Wokwi?** [Wokwi](https://wokwi.com/) is a free online electronics simulator. It allows you to build, wire, and test code for microcontrollers (like the Raspberry Pi Pico) directly in your web browser without needing to buy any physical hardware!
+
+![Wokwi Circuit Simulation](./01_led/traffic_light.jpg)
+
+> **Note:** The Wokwi simulation image above shows all three LEDs illuminated at once to demonstrate a fully working circuit. It is crucial to ensure all jumper wires and resistors are plugged into the exact right places for the circuit to succeed. In reality, the provided `main.py` script cycles through the lights one at a time (like a traffic light). However, once you have everything wired correctly, you can modify the code and let your imagination decide how to light them up!
 
 **Hardware Pin Mapping**
 - Red LED: GPIO 15 (Pin 20) $\rightarrow$ Current-limiting resistor $\rightarrow$ Ground
