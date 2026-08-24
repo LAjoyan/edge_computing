@@ -28,8 +28,15 @@ while True:
         green.value(1)
         red.value(0)
 
-        # TODO: Add buzzer and flash sequence here
+        for i in range(10):
+            buzzer.value(1)
+            time.sleep(0.1)
+            buzzer.value(0)
+            time.sleep(0.3)
 
+        for i in range(10):
+            time.sleep(0.5)
+            green.toggle()
 
         time.sleep(1)
         button_state["pressed"] = False
