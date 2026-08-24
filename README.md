@@ -26,6 +26,9 @@ edge_computing/
 ├── 01_led/
 │   └── main.py
 │   └── traffic_light.jpg
+├── 03_hardware_fundamentals/
+│   └── main.py
+│   └── pedestrian_light.jpg
 ├── .gitignore
 └── README.md
 ```
@@ -64,6 +67,32 @@ Interfaces external components via a breadboard, driving multiple color-coded LE
 
 - Organizes hardware pin objects inside a Python dictionary for structured access.
 - Uses list comprehension to isolate and shut off non-active LEDs during each phase of the cycle.
+
+
+###  03_hardware_fundamentals
+
+This project is a hardware simulation of a pedestrian crossing light built in MicroPython. It features a cross-request button, standard Red/Green walk lights, and an audible buzzer signal to assist visually impaired pedestrians.
+
+**📸 Simulation Preview**
+
+![Wokwi breadboard simulation showing a Raspberry Pi Pico W connected to LEDs, a button, and a buzzer. The green LED is illuminated and a music note indicates the buzzer is active.](./03_hardware_fundamentals/pedestrian_light.jpg)
+*The pedestrian crossing system in the active "Walk" phase. The green LED is illuminated and the buzzer is emitting the audible crossing signal.*
+
+## 🛠️ Hardware Setup (Pin Mapping)
+
+| Component        | GPIO Pin | Role                          | Configuration                                 |
+| ---------------- | -------- | ----------------------------- | --------------------------------------------- |
+| **Red LED**      | 15       | "Do Not Walk" Signal          | Output (wired with current-limiting resistor) |
+| **Green LED**    | 14       | "Walk" Signal                 | Output (wired with current-limiting resistor) |
+| **Push Button**  | 13       | Pedestrian Cross Request      | Input (Internal `PULL_UP`)                    |
+| **Buzzer**       | 11       | Audible Crossing Signal       | Output                                        |
+
+## ✨ System Features
+* **Hardware Interrupts:** Uses `Pin.irq` for immediate cross-request registration without blocking the main traffic loop.
+* **Debouncing Logic:** Software debounce implemented using `time.ticks_ms()` to prevent rapid, ghost button presses.
+* **Audible Accessibility:** Integrated buzzer sequence mimics real-world accessibility features for pedestrian crossings.
+* **Clearance Warning:** Flashing green sequence indicates the crossing phase is about to terminate.
+
 
 ## 🚀 Environment & Setup
 1. Firmware: Flash the latest MicroPython for Raspberry Pi Pico W `.uf2` binary onto the board using `BOOTSEL` mode.
