@@ -22,3 +22,17 @@ def button_callback(pin):
 
 
 button.irq(trigger=Pin.IRQ_FALLING, handler=button_callback)
+
+while True:
+    if button_state["pressed"]:
+        green.value(1)
+        red.value(0)
+
+        # TODO: Add buzzer and flash sequence here
+
+
+        time.sleep(1)
+        button_state["pressed"] = False
+        red.value(1)
+        green.value(0)
+    time.sleep(3)
