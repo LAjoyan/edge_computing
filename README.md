@@ -28,7 +28,11 @@ edge_computing/
 │   └── traffic_light.jpg
 ├── 03_hardware_fundamentals/
 │   └── main.py
+│   └── nokia.py
 │   └── pedestrian_light.jpg
+├── 04_analog_digital_signals/
+│   └── main.py
+│   └── wokwi_pwm_simulation
 ├── .gitignore
 └── README.md
 ```
@@ -92,6 +96,31 @@ This project is a hardware simulation of a pedestrian crossing light built in Mi
 * **Debouncing Logic:** Software debounce implemented using `time.ticks_ms()` to prevent rapid, ghost button presses.
 * **Audible Accessibility:** Integrated buzzer sequence mimics real-world accessibility features for pedestrian crossings.
 * **Clearance Warning:** Flashing green sequence indicates the crossing phase is about to terminate.
+
+
+### 04_analog_digital_signals and Duty Cycle Fading
+
+This project demonstrates the fundamental differences between a standard digital signal and an analog-like Pulse Width Modulation (PWM) signal. It visually compares a constant reference LED against a PWM-driven LED that progressively halves its brightness.
+
+
+**📸 Simulation Preview**
+
+![wokwi_pwm_simulation](./04_analog_digital_signals/wokwi_pwm_simulation.jpg)
+
+*Wokwi simulation displaying the console output a**s the PWM duty cycle is progressively halved, resulting in a dimming effect on the left LED.*
+
+**🛠️ Hardware Setup (Pin Mapping)**
+
+| Component | GPIO Pin | Role | Configuration |
+| :--- | :--- | :--- | :--- |
+| **Fading LED** | 15 | PWM Output (Variable brightness) | `PWM()` operating at `1000 Hz` |
+| **Reference LED**| 14 | Digital Output (Constant brightness) | `Pin.OUT` driven `HIGH (1)` |
+
+**✨ Key Concepts & Implementation**
+
+- **16-Bit Resolution:** MicroPython handles PWM duty cycles using 16-bit integers (`2**16`), meaning the power level is represented by a value between `0` (off) and `65535` (fully on).
+- **Pulse Width Modulation (PWM):** Instead of a true analog voltage, the microcontroller rapidly pulses the digital pin on and off 1,000 times per second (`freq(1000)`) to create the illusion of dimming.
+- **Algorithmic Fading:** The main loop utilizes a multiplier to perfectly cut the duty cycle in half on each step, dropping the visual brightness in a precise sequence: 50% ➔ 25% ➔ 12.5% ➔ 6.25% ➔ 3.125% before resetting.
 
 
 ## 🚀 Environment & Setup
