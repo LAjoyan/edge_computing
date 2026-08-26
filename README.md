@@ -33,6 +33,10 @@ edge_computing/
 ├── 04_analog_digital_signals/
 │   └── main.py
 │   └── wokwi_pwm_simulation
+├── 06_wifi/
+│   └── main.py
+│   └── wifi_credentials.json
+│   └── wifi.py
 ├── .gitignore
 └── README.md
 ```
@@ -121,6 +125,23 @@ This project demonstrates the fundamental differences between a standard digital
 - **16-Bit Resolution:** MicroPython handles PWM duty cycles using 16-bit integers (`2**16`), meaning the power level is represented by a value between `0` (off) and `65535` (fully on).
 - **Pulse Width Modulation (PWM):** Instead of a true analog voltage, the microcontroller rapidly pulses the digital pin on and off 1,000 times per second (`freq(1000)`) to create the illusion of dimming.
 - **Algorithmic Fading:** The main loop utilizes a multiplier to perfectly cut the duty cycle in half on each step, dropping the visual brightness in a precise sequence: 50% ➔ 25% ➔ 12.5% ➔ 6.25% ➔ 3.125% before resetting.
+
+### `06_wifi` Network Connectivity & Credential Management
+
+This project establishes a wireless local area network (WLAN) connection using the Raspberry Pi Pico W's onboard Infineon CYW43439 Wi-Fi chip. It demonstrates secure credential management and provides physical visual feedback upon a successful network connection.
+
+**🛠️ Hardware Setup (Pin Mapping)**
+
+| Component | GPIO Pin | Role | Configuration |
+| :--- | :--- | :--- | :--- |
+| **Status LED** | 15 | Network Status Indicator | `Pin.OUT` driven `HIGH (1)` on connect |
+
+**✨ Key Concepts & Implementation**
+
+- **WLAN Configuration:** Utilizes the `network.WLAN(network.STA_IF)` module to configure the microcontroller as a standard Wi-Fi client (Station interface).
+- **Regional Compliance:** Sets the regulatory wireless domain using `rp2.country("SE")` to comply with local Swedish radio frequency regulations.
+- **Secure Secrets Management:** Demonstrates IoT security best practices by loading the SSID and password from an external `wifi_credentials.json` file. The actual credentials are safely excluded from version control via `.gitignore`, while a `wifi_credentials_example.json` file serves as a safe template for repository users.
+- **Connection Polling:** Implements a timeout-based `while` loop that periodically checks `wlan.isconnected()`, preventing the microcontroller from hanging indefinitely if the network is unavailable.
 
 
 ## 🚀 Environment & Setup
