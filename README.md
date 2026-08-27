@@ -32,7 +32,8 @@ edge_computing/
 │   └── pedestrian_light.jpg
 ├── 04_analog_digital_signals/
 │   └── main.py
-│   └── wokwi_pwm_simulation
+│   └── wokwi_pwm_simulation.jpg
+│   └── led_dimmer.jpg
 ├── 06_wifi/
 │   └── main.py
 │   └── wifi_credentials.json
@@ -125,6 +126,30 @@ This project demonstrates the fundamental differences between a standard digital
 - **16-Bit Resolution:** MicroPython handles PWM duty cycles using 16-bit integers (`2**16`), meaning the power level is represented by a value between `0` (off) and `65535` (fully on).
 - **Pulse Width Modulation (PWM):** Instead of a true analog voltage, the microcontroller rapidly pulses the digital pin on and off 1,000 times per second (`freq(1000)`) to create the illusion of dimming.
 - **Algorithmic Fading:** The main loop utilizes a multiplier to perfectly cut the duty cycle in half on each step, dropping the visual brightness in a precise sequence: 50% ➔ 25% ➔ 12.5% ➔ 6.25% ➔ 3.125% before resetting.
+
+### led_dimmer_potentiometer (ADC to PWM Control)
+
+This sub-project demonstrates continuous analog input reading using the Raspberry Pi Pico's Analog-to-Digital Converter (ADC) and mapping that input directly to a PWM-controlled LED for real-time manual brightness adjustment.
+
+**📸 Simulation Preview**
+
+![wokwi_potentiometer_simulation](./04_analog_digital_signals/led_dimmer.jpg)
+
+*Wokwi simulation displaying real-time ADC readings in the console and dynamic LED brightness adjustment as the potentiometer knob turns.*
+
+**🛠️ Hardware Setup (Pin Mapping)**
+
+| Component | GPIO Pin | Role | Configuration |
+| :--- | :--- | :--- | :--- |
+| **Potentiometer (Wiper)** | 26 (ADC0) | Analog Input | `ADC(Pin(26))` |
+| **Dimmer LED** | 15 | PWM Output (Variable brightness) | `PWM()` operating at `1000 Hz` |
+
+**✨ Key Concepts & Implementation**
+
+- **Analog-to-Digital Conversion (ADC):** Reads the variable voltage (0–3.3V) from the potentiometer's wiper and converts it into a 16-bit integer value (`0` to `65535`) using `potentiometer.read_u16()`.
+- **Direct 16-Bit Mapping:** Because both `read_u16()` and `duty_u16()` operate within the same range (`0`–`65535`), the raw sensor reading directly controls the PWM duty cycle with zero math conversion required.
+- **Continuous Sampling:** The polling loop updates every 100ms (`time.sleep(0.1)`), providing smooth visual feedback while keeping USB serial monitoring responsive.
+- **Console Feedback:** The terminal output in the simulation displays the real-time 16-bit integer values being read by the ADC. As the potentiometer knob is turned, you can see the value dynamically scale from 0 (knob turned all the way down, LED off) up to 65535 (knob turned all the way up, LED fully bright).
 
 ### `06_wifi` Network Connectivity & Credential Management
 
