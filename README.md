@@ -87,7 +87,7 @@ This project is a hardware simulation of a pedestrian crossing light built in Mi
 ![Wokwi breadboard simulation showing a Raspberry Pi Pico W connected to LEDs, a button, and a buzzer. The green LED is illuminated and a music note indicates the buzzer is active.](./03_hardware_fundamentals/pedestrian_light.jpg)
 *The pedestrian crossing system in the active "Walk" phase. The green LED is illuminated and the buzzer is emitting the audible crossing signal.*
 
-## 🛠️ Hardware Setup (Pin Mapping)
+**🛠️ Hardware Setup (Pin Mapping)**
 
 | Component        | GPIO Pin | Role                          | Configuration                                 |
 | ---------------- | -------- | ----------------------------- | --------------------------------------------- |
@@ -96,11 +96,19 @@ This project is a hardware simulation of a pedestrian crossing light built in Mi
 | **Push Button**  | 13       | Pedestrian Cross Request      | Input (Internal `PULL_UP`)                    |
 | **Buzzer**       | 11       | Audible Crossing Signal       | Output                                        |
 
-## ✨ System Features
+**✨ System Features**
 * **Hardware Interrupts:** Uses `Pin.irq` for immediate cross-request registration without blocking the main traffic loop.
 * **Debouncing Logic:** Software debounce implemented using `time.ticks_ms()` to prevent rapid, ghost button presses.
 * **Audible Accessibility:** Integrated buzzer sequence mimics real-world accessibility features for pedestrian crossings.
 * **Clearance Warning:** Flashing green sequence indicates the crossing phase is about to terminate.
+
+#### 🎵 Experimental Extension: `nokia.py`
+
+An experimental variation located in this folder replaces the standard buzzer crossing beep with the classic **Nokia ringtone** melody using PWM tone generation.
+
+- **PWM Frequency Modulation:** Uses `buzzer.freq(frequency)` mapped across specific note frequencies (e.g., E5 at 659 Hz, D5 at 587 Hz) combined with precise note durations and pauses.
+- **Wokwi Audio Simulation:** In the Wokwi simulator, the passive buzzer model generates real synthesized audio in your web browser, allowing you to hear the Nokia tune play in real time when pressing the cross-request button.
+- **Execution & Boot Note:** This script was created as an experimental audio test. MicroPython exclusively executes `main.py` automatically upon powering on or resetting the Raspberry Pi Pico. To run this experiment on hardware on boot (or in Wokwi's default root runner), either rename `nokia.py` to `main.py` or execute the file directly from VS Code via the MicroPico extension.
 
 
 ### 04_analog_digital_signals and Duty Cycle Fading
