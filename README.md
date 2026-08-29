@@ -196,6 +196,32 @@ This lab reads ambient temperature and relative humidity using a digital DHT sen
 
   [Wokwi DHT22 Guide & Reference](https://docs.wokwi.com/parts/wokwi-dht22)
 
+### `05_sensors` Internal Core Temperature Logger & LED Warning
+
+This lab uses the Raspberry Pi Pico's internal Analog-to-Digital Converter (ADC) to read the microcontroller's core temperature. It safely logs the data to a text file and toggles an external warning LED if the temperature exceeds a specific threshold.
+
+**📸 Simulation Preview**
+
+![Internal Temp Logging Simulation](./05_sensors/internal_temp_sensor/internal_temp_sensor.jpg)
+
+#### Flash Memory & Data Logging Note
+* **Preventing Flash Wear:** The Raspberry Pi Pico uses flash memory, which has a limited number of write cycles. Writing to the file every few seconds can permanently damage the memory. The code is designed to log data hourly (`time.sleep(3600)`) to ensure the hardware's longevity.
+* **Append Mode:** The script uses `open("temps.txt", "a")` (Append mode) so that if the Pico is unplugged or restarted, previous temperature logs are preserved and not overwritten.
+
+**🛠️ Hardware Setup (Pin Mapping)**
+
+| Component | Pin / GPIO | Role | Configuration |
+| :--- | :--- | :--- | :--- |
+| **Internal Temp Sensor** | Internal ADC (Channel 4) | Analog Input | `ADC(ADC.CORE_TEMP)` |
+| **Warning LED (Anode)** | GP15 (Pin 20) | Digital Signal Output | `Pin(15, Pin.OUT)` |
+| **Warning LED (Cathode)** | GND (e.g., Pin 23) | Ground | Connected via Resistor to GND rail |
+
+ **Documentation & References :**
+
+  [MicroPython machine.ADC Documentation](https://docs.micropython.org/en/latest/library/machine.ADC.html)
+
+  [Raspberry Pi Pico Python SDK (See ADC section)](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-python-sdk.pdf)
+
 ### `06_wifi` Network Connectivity & Credential Management
 
 This project establishes a wireless local area network (WLAN) connection using the Raspberry Pi Pico W's onboard Infineon CYW43439 Wi-Fi chip. It demonstrates secure credential management and provides physical visual feedback upon a successful network connection.
