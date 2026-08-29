@@ -163,6 +163,36 @@ This sub-project demonstrates continuous analog input reading using the Raspberr
 - **Continuous Sampling:** The polling loop updates every 100ms (`time.sleep(0.1)`), providing smooth visual feedback while keeping USB serial monitoring responsive.
 - **Console Feedback:** The terminal output in the simulation displays the real-time 16-bit integer values being read by the ADC. As the potentiometer knob is turned, you can see the value dynamically scale from 0 (knob turned all the way down, LED off) up to 65535 (knob turned all the way up, LED fully bright).
 
+### `05_sensors` Temperature & Humidity Sensor (DHT11 / DHT22)
+
+This lab reads ambient temperature and relative humidity using a digital DHT sensor connected via GPIO 16.
+
+**📸 Simulation Preview**
+
+![Wokwi DHT22 Simulation](./05_sensors/dht22_temperature_humidity_sensor/dht22.jpg)
+
+#### Simulation vs. Physical Hardware Note
+* **Wokwi Simulation (DHT22):** In the simulation, the **DHT22** module is used because Wokwi does not provide a native DHT11 component.
+* **Physical Hardware (DHT11):** On the actual Raspberry Pi Pico setup, we use the **DHT11** sensor:
+  * **Hardware Compatibility:** The physical lab kit contains the DHT11 module.
+  * **Code Switch:** In MicroPython, the interface is identical—simply change `from dht import DHT22` to `from dht import DHT11`, and instantiate `sensor = DHT11(Pin(16))`.
+  * **Differences:** DHT11 is optimized for basic indoor ranges (0–50°C, 20–80% RH with integer precision), whereas DHT22 supports wider ranges and decimal precision (-40–80°C, 0–100% RH).
+
+  **🛠️ Hardware Setup (Pin Mapping)**
+
+| Component | Pin / GPIO | Role | Configuration |
+| :--- | :--- | :--- | :--- |
+| **DHT11 / DHT22 VCC** | 3V3 (Pin 36) | Power Supply (3.3V) | Power rail |
+| **DHT11 / DHT22 GND** | GND (Pin 38) | Ground | Ground rail |
+| **DHT11 / DHT22 Data** | GP16 (Pin 21) | Digital Signal I/O | `Pin(16)` |
+
+ **Documentation & References :**
+
+  [MicroPython dht Module Documentation](https://docs.micropython.org/en/latest/esp8266/tutorial/dht.html)
+
+
+  [Wokwi DHT22 Guide & Reference](https://docs.wokwi.com/parts/wokwi-dht22)
+
 ### `06_wifi` Network Connectivity & Credential Management
 
 This project establishes a wireless local area network (WLAN) connection using the Raspberry Pi Pico W's onboard Infineon CYW43439 Wi-Fi chip. It demonstrates secure credential management and provides physical visual feedback upon a successful network connection.
