@@ -35,9 +35,12 @@ edge_computing/
 │   ├── wokwi_pwm_simulation.jpg
 │   └── led_dimmer.jpg
 ├── 05_sensors/
-│   └── dht22_temperature_humidity_sensor
-│       ├── main.py
-│       └── dht22.jpg
+│   ├── dht22_temperature_humidity_sensor/
+│   │   ├── dht22.jpg
+│   │   └── main.py
+│   └── internal_temp_sensor/
+│       ├── internal_temp_sensor.jpg
+│       └── main.py
 ├── 06_wifi/
 │   ├── main.py
 │   ├── wifi_credentials.json
