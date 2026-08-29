@@ -24,19 +24,23 @@ edge_computing/
 ├── 00_setup_internal_led/
 │   └── main.py
 ├── 01_led/
-│   └── main.py
+│   ├── main.py
 │   └── traffic_light.jpg
 ├── 03_hardware_fundamentals/
-│   └── main.py
-│   └── nokia.py
+│   ├── main.py
+│   ├── nokia.py
 │   └── pedestrian_light.jpg
 ├── 04_analog_digital_signals/
-│   └── main.py
-│   └── wokwi_pwm_simulation.jpg
+│   ├── main.py
+│   ├── wokwi_pwm_simulation.jpg
 │   └── led_dimmer.jpg
+├── 05_sensors/
+│   └── dht22_temperature_humidity_sensor
+│       ├── main.py
+│       └── dht22.jpg
 ├── 06_wifi/
-│   └── main.py
-│   └── wifi_credentials.json
+│   ├── main.py
+│   ├── wifi_credentials.json
 │   └── wifi.py
 ├── .gitignore
 └── README.md
