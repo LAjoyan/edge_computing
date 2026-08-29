@@ -85,7 +85,7 @@ Interfaces external components via a breadboard, driving multiple color-coded LE
 - Uses list comprehension to isolate and shut off non-active LEDs during each phase of the cycle.
 
 
-###  03_hardware_fundamentals
+### 03_hardware_fundamentals
 
 This project is a hardware simulation of a pedestrian crossing light built in MicroPython. It features a cross-request button, standard Red/Green walk lights, and an audible buzzer signal to assist visually impaired pedestrians.
 
