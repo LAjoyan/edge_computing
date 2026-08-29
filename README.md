@@ -124,7 +124,7 @@ This project demonstrates the fundamental differences between a standard digital
 
 ![wokwi_pwm_simulation](./04_analog_digital_signals/wokwi_pwm_simulation.jpg)
 
-*Wokwi simulation displaying the console output a**s the PWM duty cycle is progressively halved, resulting in a dimming effect on the left LED.*
+*Wokwi simulation displaying the console output as the PWM duty cycle is progressively halved, resulting in a dimming effect on the left LED.*
 
 **🛠️ Hardware Setup (Pin Mapping)**
 
