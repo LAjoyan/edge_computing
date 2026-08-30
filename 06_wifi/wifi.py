@@ -11,17 +11,18 @@ with open("wifi_credentials.json") as file:
 
 
 def connect_wifi(waiting_time=10):
+    # station interface -> makes into client mode
     wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
+    wlan.active(True) # powers on radio WIFI on pico
     wlan.connect(credentials.get("SSID"), credentials.get("PASSWORD"))
 
     while waiting_time > 0:
         if wlan.isconnected():
-            print("congrats u have connected")
+            print("Connected to wifi")
             break
 
         waiting_time -= 1
-        print("Try to connect to wifi, wait a little bit")
+        print("Trying to connect to wifi ...")
         time.sleep(2)
 
     return wlan.isconnected()
