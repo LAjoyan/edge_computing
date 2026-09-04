@@ -247,6 +247,43 @@ This project establishes a wireless local area network (WLAN) connection using t
 - **Secure Secrets Management:** Demonstrates IoT security best practices by loading the SSID and password from an external `wifi_credentials.json` file. The actual credentials are safely excluded from version control via `.gitignore`, while a `wifi_credentials_example.json` file serves as a safe template for repository users.
 - **Connection Polling:** Implements a timeout-based `while` loop that periodically checks `wlan.isconnected()`, preventing the microcontroller from hanging indefinitely if the network is unavailable.
 
+### `07_display` IoT Live Weather Station (HD44780 LCD1602)
+
+This lab builds an IoT weather monitor by connecting to Wi-Fi, querying live meteorological data from the Open-Meteo REST API, and rendering the current outdoor temperature onto a character LCD (HD44780 16x2).
+
+**📸 Simulation Preview**
+
+![Wokwi LCD1602 Simulation Preview](./07_display/display_temp.jpg)
+
+*Wokwi simulation illustrating the Wi-Fi connection handshake, API response parsing, and real-time Stockholm temperature rendered onto the 1602 LCD.*
+
+**🛠️ Hardware Setup (Pin Mapping)**
+
+| Component Pin / Role | Pico W Pin / GPIO | Configuration / Wiring |
+| :--- | :--- | :--- |
+| **LCD VDD (Power)** | VBUS (Pin 40) | 5V rail (via USB power) |
+| **LCD VSS / RW / K** | GND | Ground rail |
+| **LCD V0 (Contrast)** | Potentiometer Wiper | 0–5V analog contrast control |
+| **LCD RS (Register Select)** | GP22 (Pin 29) | Digital Output (`Pin.OUT`) |
+| **LCD E (Enable)** | GP21 (Pin 27) | Digital Output (`Pin.OUT`) |
+| **LCD D4** | GP20 (Pin 26) | Digital Output (Data bit 4) |
+| **LCD D5** | GP19 (Pin 25) | Digital Output (Data bit 5) |
+| **LCD D6** | GP18 (Pin 24) | Digital Output (Data bit 6) |
+| **LCD D7** | GP17 (Pin 22) | Digital Output (Data bit 7) |
+| **LCD A (Backlight Anode)** | VBUS via Resistor | 330 $\Omega$ current-limiting resistor to 5V rail |
+
+**✨ Key Concepts & Implementation**
+
+- **Parallel 4-Bit Data Bus:** Operates the HD44780 controller in 4-bit nibble mode using `gpio_lcd.py`, reducing microcontroller GPIO usage from 8 data lines down to 4 (`GP17`–`GP20`).
+- **REST API Integration:** Sends an HTTP GET request to Open-Meteo via `requests.get()` to retrieve live Stockholm temperature metrics parsed from JSON.
+- **Hardware Contrast Control:** Uses a 10 kΩ potentiometer divider connected to pin `V0` to bias the liquid crystal display contrast.
+- **Character Encoding:** Renders the degree symbol dynamically using character code `chr(223)`, conforming to the HD44780 ROM character map.
+
+**Documentation & References:**
+
+- [Open-Meteo Weather API Documentation](https://open-meteo.com/en/docs)
+- [Wokwi LCD1602 Guide & Reference](https://docs.wokwi.com/parts/wokwi-lcd1602)
+
 
 ## 🚀 Environment & Setup
 1. Firmware: Flash the latest MicroPython for Raspberry Pi Pico W `.uf2` binary onto the board using `BOOTSEL` mode.
