@@ -45,6 +45,14 @@ edge_computing/
 │   ├── main.py
 │   ├── wifi_credentials.json
 │   └── wifi.py
+├── 07_display/
+│   ├── diagram.json
+│   ├── display_temp.jpg
+│   ├── gpio_lcd.py
+│   ├── lcd_api.py
+│   ├── main.py
+│   ├── wifi_credentials.json
+│   └── wifi.py
 ├── .gitignore
 └── README.md
 ```
